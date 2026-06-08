@@ -4,14 +4,14 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - uses: arduino/setup-arduino-cli@v1
+      - uses: actions/checkout@v4
+      - uses: arduino/setup-arduino-cli@v2
       - run: |
           arduino-cli core install esp32:esp32
           arduino-cli lib install "WiFiManager"
           mkdir build
           arduino-cli compile --fqbn esp32:esp32:esp32 --output-dir build Jkh
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         with:
           name: firmware
           path: build/*.bin

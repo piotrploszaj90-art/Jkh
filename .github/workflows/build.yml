@@ -1,0 +1,17 @@
+name: Build ESP32
+on: push
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: arduino/setup-arduino-cli@v1
+      - run: |
+          arduino-cli core install esp32:esp32
+          arduino-cli lib install "WiFiManager"
+          mkdir build
+          arduino-cli compile --fqbn esp32:esp32:esp32 --output-dir build Jkh
+      - uses: actions/upload-artifact@v3
+        with:
+          name: firmware
+          path: build/*.bin

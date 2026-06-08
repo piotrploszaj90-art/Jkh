@@ -9,8 +9,12 @@ jobs:
       - run: |
           arduino-cli core install esp32:esp32
           arduino-cli lib install "WiFiManager"
+          mkdir -p sketch/sketch
+          cp *.ino sketch/sketch/ 2>/dev/null || cp Jkh/*.ino sketch/sketch/ 2>/dev/null || true
+          ls -la
+          ls -la sketch/sketch/
           mkdir build
-          arduino-cli compile --fqbn esp32:esp32:esp32 --output-dir build Jkh
+          arduino-cli compile --fqbn esp32:esp32:esp32 --output-dir build sketch/sketch
       - uses: actions/upload-artifact@v4
         with:
           name: firmware
